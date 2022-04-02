@@ -22,7 +22,15 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
+    // winner/current
     if (calculateWinner(squares) || squares[i]) return;
+
+    // draw
+    // const data = current.squares.find((x) => console.log(x));
+    // console.log(current.squares);
+    // console.log(data);
+
+    // console.log(data);
 
     squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
@@ -59,8 +67,15 @@ class Game extends React.Component {
     });
 
     let status;
+
+    const draw = current.squares.every((square) => {
+      return square != null;
+    });
+
     if (winner) {
       status = `Winner ${winner}`;
+    } else if (draw) {
+      status = `Draw !!!`;
     } else {
       status = `Next player ${this.state.xIsNext ? "X" : "O"}`;
     }
