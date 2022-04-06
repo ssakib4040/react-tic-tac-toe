@@ -6,6 +6,7 @@ import Board from "./Board";
 class Game extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       history: [
         {
@@ -15,6 +16,7 @@ class Game extends React.Component {
       stepNumber: 0,
       xIsNext: true,
     };
+
   }
 
   handleClick(i) {
@@ -55,6 +57,9 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    const winnerPosition = calculateWinnerPosition(current.squares);
+
+    // console.log(winnerPosition);
 
     const moves = history.map((step, move) => {
       const desc = move ? `Go to move #${move}` : `Go to game start`;
@@ -86,6 +91,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            isActive={winnerPosition}
           />
         </div>
         <div className="game-info">
@@ -114,6 +120,28 @@ function calculateWinner(squares) {
 
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
+    }
+  }
+  return null;
+}
+
+function calculateWinnerPosition(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return [a, b, c];
     }
   }
   return null;

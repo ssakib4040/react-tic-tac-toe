@@ -3,10 +3,17 @@ import Square from "./Square";
 
 class Board extends React.Component {
   renderSquare(i) {
+    const isActiveData =
+      this.props.isActive &&
+      this.props.isActive.find((item) => {
+        if (item == i) return true;
+      });
+
     return (
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        isActive={isActiveData}
       />
     );
   }

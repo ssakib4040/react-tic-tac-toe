@@ -28,6 +28,11 @@ ul {
   width: 68px;
 }
 
+.square.active {
+  background-color: #4caf50;
+  color: #fff;
+}
+
 .square:focus {
   outline: none;
 }
