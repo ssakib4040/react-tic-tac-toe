@@ -1,11 +1,17 @@
 import React from "react";
+// import { defaultProps } from "default-props";
+
 import Square from "./Square";
 
 class Board extends React.Component {
+  static defaultProps = {
+    isActiveData: [],
+  };
+
   renderSquare(i) {
     const isActiveData =
       this.props.isActive &&
-      this.props.isActive.find((item) => {
+      this.props.isActive.some((item) => {
         if (item == i) return true;
       });
 
@@ -42,5 +48,7 @@ class Board extends React.Component {
     );
   }
 }
+
+// Board.
 
 export default Board;
